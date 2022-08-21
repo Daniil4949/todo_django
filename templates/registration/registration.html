@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="margin-top:50px; margin-bottom: 100px;">
+    {% if user_form.errors %}
+    <!--  Users' errors are here-->
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error!</strong>
+        {% for error in user_form.errors %}
+        <p>
+        <h5>{{user_form.errors}}</h5>
+        </p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="shadow-lg p-3 mb-5 bg-body rounded">
+        <form method="post" action="{% url 'registration' %}">
+            {% csrf_token %}
+            <center>
+                <!--        Users' registration form-->
+                <h4>Registration</h4>
+            </center>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">@</span>
+                <input type="text" name="username" class="form-control" placeholder="Username" aria-label="username"
+                       aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">.com</span>
+                <input type="email" class="form-control" name="email" id="basic-url" placeholder="Email"
+                       aria-describedby="basic-addon3">
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">password</span>
+                <input type="password" class="form-control" name="password1" id="basic-url"
+                       placeholder="Enter your password"
+                       aria-describedby="basic-addon3">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">password</span>
+                <input type="password" class="form-control" name="password2" id="basic-url"
+                       placeholder="Submit your password"
+                       aria-describedby="basic-addon3">
+            </div>
+            <center>{{ user_form.captcha }}</center>
+            <center>
+                <button type="submit" style="margin-top:20px;" class="btn btn-primary">Sign up</button>
+            </center>
+        </form>
+    </div>
+</div>
+{% endblock %}

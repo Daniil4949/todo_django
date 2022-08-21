@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<center><h4>Creating a new task</h4></center>
+<div class="text-center">
+    <div class="shadow-lg p-3 mb-5 bg-body rounded">
+        <form action="#" method="post" class="form" style="margin:40px;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit"  style="background-color:rgba(13, 13, 199, 0.877);" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<center><h3 style="margin-bottom:700px;">You should <a href="{% url 'login' %}">log in</a> firstly</h3></center>
+{% endif %}
+{% endblock %}
