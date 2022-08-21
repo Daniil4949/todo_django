@@ -9,4 +9,5 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Task, TaskAdmin)
+
 # Register your models here.

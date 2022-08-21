@@ -3,7 +3,8 @@
 <div class="text-center">
     <h1 style="margin-top:30px;">Todo app</h1>
     <h4>This application was created to make your life easier</h4>
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" style="margin-top:50px; margin-bottom:40px;">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false"
+         style="margin-top:50px; margin-bottom:40px;">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
@@ -63,7 +64,8 @@
         </div>
 
         <div class="card" style="width: 100%; margin-bottom:60px;">
-            <img src="https://cdn.pixabay.com/photo/2016/11/29/06/18/home-office-1867761_960_720.jpg" class="card-img-top"
+            <img src="https://cdn.pixabay.com/photo/2016/11/29/06/18/home-office-1867761_960_720.jpg"
+                 class="card-img-top"
                  alt="...">
             <div class="card-body">
                 <h5 class="card-title">All the information in your profile</h5>
@@ -82,10 +84,10 @@
     </div>
 </div>
 <div class="text-center">
-        {% if request.user.is_authenticated %}
-        <h3>You can go to your <a href="#">profile</a></h3>
-        {% else %}
-        <h3>You can just <a href="{% url 'registration' %}">sign up</a> or <a href="{% url 'login' %}">login</a></h3>
-        {% endif %}
-    </div>
+    {% if request.user.is_authenticated %}
+    <h3>You can go to your <a href="#">profile</a></h3>
+    {% else %}
+    <h3>You can just <a href="{% url 'registration' %}">sign up</a> or <a href="{% url 'login' %}">login</a></h3>
+    {% endif %}
+</div>
 {% endblock %}
