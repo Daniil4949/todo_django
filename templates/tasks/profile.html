@@ -2,15 +2,79 @@
 {% block content %}
 <div class="text-center" style="margin-bottom:600px;">
     {% if request.user.is_authenticated %}
-        <h1>Hi! {{ request.user.username }} </h1>
-        {% if uncompleted_tasks %}
-        <center><h3>Tasks to do</h3></center>
-        {% for task in uncompleted_tasks %}
-        <center><h4>{{ task.title }}</h4></center>
-        {% endfor %}
-        {% endif %}
+    <h1>Hi! {{ request.user.username }} </h1>
+    {% if uncompleted_tasks %}
+    <center><h3>Tasks to do</h3></center>
+    {% for task in uncompleted_tasks %}
+    <div class="container">
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+            <ul class="list-group" style="margin:30px;">
+                <li class="list-group-item">
+                    <p><a href="{% url 'mark_as_completed' task.slug %}" type="button" class="btn btn-primary"
+                          style="background-color: rgb(13, 13, 136)">Mark as
+                        completed</a></p>
+                    <label class="form-check-label"><h4>{{ task.title }}</h4></label>
+                    <p>{{ task.description }}</p>
+                    <a href="{% url 'delete_task' task.slug %}"><i class="fa fa-trash" style="color:red;"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if completed_tasks %}
+    <hr>
+    <center><h3>Completed tasks</h3></center>
+    {% for task in completed_tasks %}
+    <div class="container">
+        <div class="shadow-lg p-3 mb-5 bg-body rounded">
+            <ul class="list-group" style="margin:30px;">
+                <li class="list-group-item">
+                    <label class="form-check-label"><h4>{{ task.title }}</h4></label>
+                    <p>{{ task.description }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% if completed_tasks or uncompleted_tasks %}
+    <hr>
+    <a href="{% url 'delete_all_tasks' %}" type="button" class="btn btn-primary"
+       style="background-color: rgb(13, 13, 136)" data-bs-toggle="modal"
+       data-bs-target="#exampleModal">Delete all the tasks</a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure about that?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You will not able to restore the tasks.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" style="background-color: rgb(13, 13, 136)"
+                            data-bs-dismiss="modal">Close
+                    </button>
+                    <a href="{% url 'delete_all_tasks' %}" type="button" class="btn btn-danger">Delete all</a>
+                </div>
+            </div>
+        </div>
+    </div>
     {% else %}
-    <h3>You should <a href="{% url 'registration' %}">sign up</a> or <a href="{% url 'login' %}">login</a> firstly to enter your profile</h3>
+    <center><h3>You can add new task <a href="{% url 'add_task' %}">here</a></h3></center>
+    {% endif %}
+    <div class="progress" style="margin:50px;">
+        <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: {{value}}%;"
+             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%
+        </div>
+    </div>
+    {% else %}
+    <h3>You should <a href="{% url 'registration' %}">sign up</a> or <a href="{% url 'login' %}">login</a> firstly to
+        enter your profile</h3>
     {% endif %}
 </div>
 {% endblock %}

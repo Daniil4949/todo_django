@@ -33,11 +33,18 @@
                     </li>
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'profile' %}"><h3>Your profile</h3></a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'profile' %}"><h3>Your profile</h3>
+                        </a>
                     </li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'login' %}"><h3>Your profile</h3>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}"><h3>Logout</h3>
                         </a>
                     </li>
                     {% endif %}
