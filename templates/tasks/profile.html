@@ -2,10 +2,13 @@
 {% block content %}
 <div class="text-center" style="margin-bottom:600px;">
     {% if request.user.is_authenticated %}
-    <h1>Hi! {{ request.user.username }} </h1>
-    {% for task in tasks %}
-    <h3>task</h3>
-    {% endfor %}
+        <h1>Hi! {{ request.user.username }} </h1>
+        {% if uncompleted_tasks %}
+        <center><h3>Tasks to do</h3></center>
+        {% for task in uncompleted_tasks %}
+        <center><h4>{{ task.title }}</h4></center>
+        {% endfor %}
+        {% endif %}
     {% else %}
     <h3>You should <a href="{% url 'registration' %}">sign up</a> or <a href="{% url 'login' %}">login</a> firstly to enter your profile</h3>
     {% endif %}
