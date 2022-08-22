@@ -32,7 +32,7 @@ def add_task(request):
             user_profile = Profile.objects.get(user=request.user)
             Task.objects.create(title=add_task_form.cleaned_data['title'], slug=slugify(add_task_form.cleaned_data['title']), profile=user_profile,
                                 description=add_task_form.cleaned_data['description'])
-            return redirect('home')
+            return redirect('profile')
         return render(request, 'tasks/add_task.html', {'form': add_task_form})
     return render(request, 'tasks/add_task.html', {'form': add_task_form})
 
@@ -78,11 +78,15 @@ def profile(request):
         profile = Profile.objects.get(user=request.user)
         completed_tasks = Task.objects.filter(profile=profile, is_completed=True)
         uncompleted_tasks = Task.objects.filter(profile=profile, is_completed=False)
+        completed_tasks_number = Task.objects.filter(profile=profile, is_completed=True).count()
+        uncompleted_tasks_number = Task.objects.filter(profile=profile, is_completed=False).count()
         try:
             value = int(completed_tasks.count() / Task.objects.filter(profile=profile).count()) * 100
         except:
             value = 0
-        return render(request, 'tasks/profile.html', {"completed_tasks": completed_tasks, "uncompleted_tasks": uncompleted_tasks, "value": value})
+        return render(request, 'tasks/profile.html', {"completed_tasks": completed_tasks, "uncompleted_tasks": uncompleted_tasks,
+                                                      "value": value, "completed_tasks_number": completed_tasks_number,
+                                                      "uncompleted_tasks_number":uncompleted_tasks_number})
     else:
         Profile.objects.create(user=request.user)
         return render(request, 'tasks/profile.html')
