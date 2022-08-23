@@ -1,10 +1,11 @@
 from django.urls import path, include
-from .views import RegisterUser, MainPage, add_task, profile, mark_as_comleted, delete_task, delete_all_tasks
+from .views import RegisterUser, MainPage, add_task, profile, mark_as_comleted, delete_task, delete_all_tasks, LoginUser, logout_user
 
 urlpatterns = [
     path('main/', MainPage.as_view(), name='home'),
-    path('accounts/registration/', RegisterUser.as_view(), name='registration'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('registration/', RegisterUser.as_view(), name='registration'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('logout/', logout_user, name='logout'),
     path("add_task/", add_task, name='add_task'),
     path("profile/", profile, name='profile'),
     path("mark_as_completed/<slug:slug>/", mark_as_comleted, name='mark_as_completed'),

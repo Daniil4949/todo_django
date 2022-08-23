@@ -1,4 +1,7 @@
 from urllib import request
+
+from django.contrib.auth import logout
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView
 from .forms import RegistrationUserForm, AddTaskForm
@@ -23,8 +26,13 @@ class RegisterUser(CreateView):
     success_url = reverse_lazy('login')
 
 
+def logout_user(request):
+    logout(request)
+    return redirect('home')
+
 class LoginUser(LoginView):
     """Login user view"""
+    form_class = AuthenticationForm
     template_name = 'registration/login.html'
     model = User
     success_url = reverse_lazy('home')
