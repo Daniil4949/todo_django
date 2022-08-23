@@ -117,7 +117,11 @@ LOGIN_REDIRECT_URL = '/main/'
 LOGOUT_REDIRECT_URL = '/main/'
 PASSWORD_RESET_COMPLETE_REDIRECT_URL = '/accounts/login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'daniilkim9887@gmail.com'
+EMAIL_HOST_PASSWORD = '$BAKsw385!=199'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
