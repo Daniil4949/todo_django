@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="text-center" style="margin-bottom:600px;">
+<div class="container" style="margin-bottom:600px;">
     {% if request.user.is_authenticated %}
+<!--    user's nick-->
     <h1>Hi! {{ request.user.username }} </h1>
     {% if uncompleted_tasks %}
-    <center><h3>Tasks to do</h3></center>
+    <center>
+        <h3>Tasks to do</h3>
+    </center>
     {% for task in uncompleted_tasks %}
+<!--    for loop for uncompleted tasks-->
     <div class="container">
         <div class="shadow-lg p-3 mb-5 bg-body rounded">
             <ul class="list-group" style="margin:30px;">
                 <li class="list-group-item">
                     <p><a href="{% url 'mark_as_completed' task.slug %}" type="button" class="btn btn-primary"
-                          style="background-color: rgb(13, 13, 136)">Mark as
-                        completed</a></p>
-                    <label class="form-check-label"><h4>{{ task.title }}</h4></label>
+                            style="background-color: rgb(13, 13, 136)">Mark as
+                            completed</a></p>
+                    <label class="form-check-label">
+                        <h4>{{ task.title }}</h4>
+                    </label>
                     <p>{{ task.description }}</p>
                     <a href="{% url 'delete_task' task.slug %}"><i class="fa fa-trash" style="color:red;"></i></a>
                 </li>
@@ -24,13 +30,18 @@
     {% endif %}
     {% if completed_tasks %}
     <hr>
-    <center><h3>Completed tasks</h3></center>
+    <center>
+        <h3>Completed tasks</h3>
+    </center>
     {% for task in completed_tasks %}
+<!--    You  can't delete one of the completed tasks-->
     <div class="container">
         <div class="shadow-lg p-3 mb-5 bg-body rounded">
             <ul class="list-group" style="margin:30px;">
                 <li class="list-group-item">
-                    <label class="form-check-label"><h4>{{ task.title }}</h4></label>
+                    <label class="form-check-label">
+                        <h4>{{ task.title }}</h4>
+                    </label>
                     <p>{{ task.description }}</p>
                 </li>
             </ul>
@@ -39,10 +50,11 @@
     {% endfor %}
     {% endif %}
     {% if completed_tasks or uncompleted_tasks %}
+<!--    modal window for deleting all the tasks-->
     <hr>
     <a href="{% url 'delete_all_tasks' %}" type="button" class="btn btn-primary"
-       style="background-color: rgb(13, 13, 136)" data-bs-toggle="modal"
-       data-bs-target="#exampleModal">Delete all the tasks</a>
+        style="background-color: rgb(13, 13, 136)" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete all the
+        tasks</a>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -53,11 +65,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    You will not able to restore the tasks.
+                    You will be not able to restore the tasks.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" style="background-color: rgb(13, 13, 136)"
-                            data-bs-dismiss="modal">Close
+                        data-bs-dismiss="modal">Close
                     </button>
                     <a href="{% url 'delete_all_tasks' %}" type="button" class="btn btn-danger">Delete all</a>
                 </div>
@@ -65,17 +77,25 @@
         </div>
     </div>
     {% else %}
-    <center><h3>You can add new task <a href="{% url 'add_task' %}">here</a></h3></center>
+    <center>
+        <h3>You can add new task <a href="{% url 'add_task' %}">here</a></h3>
+    </center>
     {% endif %}
-    <center><h2>Your progress</h2></center>
+    <center>
+        <h2>Your progress</h2>
+    </center>
     <div class="progress" style="margin:50px;">
         <div class="progress-bar" role="progressbar" aria-label="Example with label" style="width: {{value}}%;"
-             aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{value}}%
+            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{value}}%
         </div>
     </div>
     <div class="container">
-        <p><h4>Completed tasks: {{ completed_tasks_number }}</h4></p>
-        <p><h4>Uncompleted tasks: {{ uncompleted_tasks_number }}</h4></p>
+        <p>
+        <h4>Completed tasks: {{ completed_tasks_number }}</h4>
+        </p>
+        <p>
+        <h4>Uncompleted tasks: {{ uncompleted_tasks_number }}</h4>
+        </p>
     </div>
     {% else %}
     <h3>You should <a href="{% url 'registration' %}">sign up</a> or <a href="{% url 'login' %}">login</a> firstly to

@@ -17,22 +17,28 @@ class MainPage(ListView):
 
 
 class RegisterUser(CreateView):
+    """Register user class"""
     form_class = RegistrationUserForm
     template_name = 'registration/registration.html'
     success_url = reverse_lazy('login')
 
 
 class LoginUser(LoginView):
+    """Login user view"""
     template_name = 'registration/login.html'
     model = User
     success_url = reverse_lazy('home')
 
+
 def add_task(request):
+    """add task form. The necessary variables are: title, description.
+        Other  variables are not necessary in the form. """
     add_task_form = AddTaskForm(request.POST)
     if request.method == 'POST':
         if add_task_form.is_valid():
             user_profile = Profile.objects.get(user=request.user)
-            Task.objects.create(title=add_task_form.cleaned_data['title'], slug=slugify(add_task_form.cleaned_data['title']), profile=user_profile,
+            Task.objects.create(title=add_task_form.cleaned_data['title'],
+                                slug=slugify(add_task_form.cleaned_data['title']), profile=user_profile,
                                 description=add_task_form.cleaned_data['description'])
             return redirect('profile')
         return render(request, 'tasks/add_task.html', {'form': add_task_form})
@@ -40,6 +46,7 @@ def add_task(request):
 
 
 def mark_as_comleted(request, slug):
+    """Mark a user's task as a completed one"""
     profile = Profile.objects.get(user=request.user)
     task = Task.objects.get(profile=profile, slug=slug)
     task.is_completed = True
@@ -50,6 +57,7 @@ def mark_as_comleted(request, slug):
 
 
 def delete_task(request, slug):
+    """Deleting user's task"""
     profile = Profile.objects.get(user=request.user)
     task = Task.objects.get(profile=profile, slug=slug)
     if task.is_completed:
@@ -63,6 +71,7 @@ def delete_task(request, slug):
 
 
 def delete_all_tasks(request):
+    """Deleting all the user's tasks"""
     profile = Profile.objects.get(user=request.user)
     tasks = Task.objects.filter(profile=profile)
     for task in tasks:
@@ -76,6 +85,9 @@ def delete_all_tasks(request):
 
 
 def profile(request):
+    """User profile with all the task and the user's progress.
+    try/except block is necessary in case of absence of the user's tasks.
+    It causes DivisionByZero error"""
     if Profile.objects.filter(user=request.user):
         profile = Profile.objects.get(user=request.user)
         completed_tasks = Task.objects.filter(profile=profile, is_completed=True)
@@ -83,14 +95,15 @@ def profile(request):
         completed_tasks_number = Task.objects.filter(profile=profile, is_completed=True).count()
         uncompleted_tasks_number = Task.objects.filter(profile=profile, is_completed=False).count()
         try:
-            value = int(completed_tasks.count() / Task.objects.filter(profile=profile).count()) * 100
+            value = int((len(completed_tasks) / len(Task.objects.filter(profile=profile))) * 100)
         except:
             value = 0
-        return render(request, 'tasks/profile.html', {"completed_tasks": completed_tasks, "uncompleted_tasks": uncompleted_tasks,
-                                                      "value": value, "completed_tasks_number": completed_tasks_number,
-                                                      "uncompleted_tasks_number":uncompleted_tasks_number})
+        return render(request, 'tasks/profile.html',
+                      {"completed_tasks": completed_tasks, "uncompleted_tasks": uncompleted_tasks,
+                       "value": value, "completed_tasks_number": completed_tasks_number,
+                       "uncompleted_tasks_number": uncompleted_tasks_number})
     else:
         Profile.objects.create(user=request.user)
         return render(request, 'tasks/profile.html')
-    
+
 # Create your views here.

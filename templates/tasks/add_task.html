@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% if request.user.is_authenticated %}
-<center><h4>Creating a new task</h4></center>
+<center>
+    <h4>Creating a new task</h4>
+</center>
 <div class="text-center">
     <div class="shadow-lg p-3 mb-5 bg-body rounded">
         <form action="#" method="post" class="form" style="margin:40px;">
@@ -20,6 +22,8 @@
     </div>
 </div>
 {% else %}
-<center><h3 style="margin-bottom:700px;">You should <a href="{% url 'login' %}">log in</a> firstly</h3></center>
+<center>
+    <h3 style="margin-bottom:700px;">You should <a href="{% url 'login' %}">log in</a> firstly</h3>
+</center>
 {% endif %}
 {% endblock %}
