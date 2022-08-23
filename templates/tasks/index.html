@@ -85,7 +85,7 @@
 </div>
 <div class="text-center">
     {% if request.user.is_authenticated %}
-    <h3>You can go to your <a href="#">profile</a></h3>
+    <h3>You can go to your <a href="{% url 'profile' %}">profile</a></h3>
     {% else %}
     <h3>You can just <a href="{% url 'registration' %}">sign up</a> or <a href="{% url 'login' %}">login</a></h3>
     {% endif %}

@@ -1,14 +1,17 @@
 from urllib import request
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, FormView
+from django.views.generic import ListView, CreateView
 from .forms import RegistrationUserForm, AddTaskForm
 from django.urls import reverse_lazy
 from .models import Task, Profile
 from django.utils.text import slugify
 from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
 
 
 class MainPage(ListView):
+    """Main page ListView"""
     queryset = Task.objects.all()
     template_name = "tasks/index.html"
 
@@ -19,11 +22,10 @@ class RegisterUser(CreateView):
     success_url = reverse_lazy('login')
 
 
-class AddTask(FormView):
-    template_name = 'tasks/add_task.html'
-    success_url = '/main/'
-    form_class = AddTaskForm
-
+class LoginUser(LoginView):
+    template_name = 'registration/login.html'
+    model = User
+    success_url = reverse_lazy('home')
 
 def add_task(request):
     add_task_form = AddTaskForm(request.POST)
