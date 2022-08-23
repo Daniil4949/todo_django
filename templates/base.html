@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<!--    All the references for the bootstrap are here-->
+    <!--    All the references for the bootstrap are here-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Todo app</title>
@@ -18,53 +18,56 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <header>
-    <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-<!--                        home page-->
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
-                            <h3>Home</h3>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-<!--                        add task form for authorised users-->
-                        <a class="nav-link active" aria-current="page" href="{% url 'add_task' %}">
-                            <h3>Add new task</h3>
-                        </a>
-                    </li>
-                    {% if request.user.is_authenticated %}
-<!--                    user's profile is available only for authorized users -->
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">
-                            <h3>Your profile</h3>
-                        </a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'login' %}">
-                            <h3>Your profile</h3>
-                        </a>
-                    </li>
-                    {% endif %}
-                    {% if request.user.is_authenticated %}
-<!--                    Log out-->
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">
-                            <h3>Logout</h3>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
+    <div class="shadow-lg p-3 mb-5 bg-body rounded">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <!--                        home page-->
+                            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
+                                <h3>Home</h3>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <!--                        add task form for authorised users-->
+                            <a class="nav-link active" aria-current="page" href="{% url 'add_task' %}">
+                                <h3>Add new task</h3>
+                            </a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <!--                    user's profile is available only for authorized users -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'profile' %}">
+                                <h3>Your profile</h3>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'login' %}">
+                                <h3>Your profile</h3>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if request.user.is_authenticated %}
+                        <!--                    Log out-->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">
+                                <h3>Logout</h3>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
 
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 </header>
 {% block content %}
 

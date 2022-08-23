@@ -2,14 +2,14 @@
 {% block content %}
 <div class="container" style="margin-bottom:600px;">
     {% if request.user.is_authenticated %}
-<!--    user's nick-->
-    <h1>Hi! {{ request.user.username }} </h1>
+    <!--    user's nick-->
+    <h1>Hi, {{ request.user.username }}! </h1>
     {% if uncompleted_tasks %}
     <center>
         <h3>Tasks to do</h3>
     </center>
     {% for task in uncompleted_tasks %}
-<!--    for loop for uncompleted tasks-->
+    <!--    for loop for uncompleted tasks-->
     <div class="container">
         <div class="shadow-lg p-3 mb-5 bg-body rounded">
             <ul class="list-group" style="margin:30px;">
@@ -34,7 +34,7 @@
         <h3>Completed tasks</h3>
     </center>
     {% for task in completed_tasks %}
-<!--    You  can't delete one of the completed tasks-->
+    <!--    You  can't delete one of the completed tasks-->
     <div class="container">
         <div class="shadow-lg p-3 mb-5 bg-body rounded">
             <ul class="list-group" style="margin:30px;">
@@ -50,7 +50,7 @@
     {% endfor %}
     {% endif %}
     {% if completed_tasks or uncompleted_tasks %}
-<!--    modal window for deleting all the tasks-->
+    <!--    modal window for deleting all the tasks-->
     <hr>
     <a href="{% url 'delete_all_tasks' %}" type="button" class="btn btn-primary"
         style="background-color: rgb(13, 13, 136)" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete all the
