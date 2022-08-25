@@ -2,7 +2,7 @@ from django.urls import path, include
 from .views import RegisterUser, MainPage, add_task, profile, mark_as_comleted, delete_task, delete_all_tasks, LoginUser, logout_user
 
 urlpatterns = [
-    path('main/', MainPage.as_view(), name='home'),
+    path('', MainPage.as_view(), name='home'),
     path('registration/', RegisterUser.as_view(), name='registration'),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),

@@ -30,6 +30,7 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+
 class LoginUser(LoginView):
     """Login user view"""
     form_class = AuthenticationForm
@@ -114,4 +115,4 @@ def profile(request):
         Profile.objects.create(user=request.user)
         return render(request, 'tasks/profile.html')
 
-# Create your views here.
+
