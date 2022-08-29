@@ -49,7 +49,7 @@ def add_task(request):
             Task.objects.create(title=add_task_form.cleaned_data['title'],
                                 slug=slugify(add_task_form.cleaned_data['title']), profile=user_profile,
                                 description=add_task_form.cleaned_data['description'])
-            return redirect('profile')
+            return redirect('add_task')
         return render(request, 'tasks/add_task.html', {'form': add_task_form})
     return render(request, 'tasks/add_task.html', {'form': add_task_form})
 
