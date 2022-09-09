@@ -113,8 +113,8 @@ USE_I18N = True
 USE_TZ = True
 
 
-LOGIN_REDIRECT_URL = '/main/'
-LOGOUT_REDIRECT_URL = '/main/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 PASSWORD_RESET_COMPLETE_REDIRECT_URL = '/accounts/login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
